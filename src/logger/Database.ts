@@ -48,7 +48,7 @@ export async function writeMessage(channel: string, item: ChatMessage): Promise<
   const input: UpdateCommandInput = {
     TableName: channel,
     Key: {
-      'userId': item.userId,
+      'username': item.username,
       'weekofYear': weekOfYear
     },
     UpdateExpression: 'SET #messages = list_append(#messages, :newMessage)',
@@ -76,3 +76,5 @@ export async function writeMessage(channel: string, item: ChatMessage): Promise<
     return false;
   }
 }
+
+getDynamoClient();

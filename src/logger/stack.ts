@@ -31,8 +31,12 @@ export class TwitchLoggerStack extends Stack {
 
     const userData = ec2.UserData.forLinux();
     userData.addCommands(
-      'sudo su'
+      'sudo su',
+      'apt-get update -y',
+      'git clone https://github.com/sambasile10/twitchlogger3.git',
+      'npx ts-node src/Chat.ts'
     );
+
     /**
      *  DynamoDB
      */

@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { writeMessage } from './Database';
 
 export interface ChatMessage {
-  userId: string,
+  username: string,
   timestamp: number,
   message: string
 }
@@ -66,13 +66,13 @@ function listen(): void {
   client.on('message', (channel, tags, message, self) => {
     if(self) return;
 
-    console.log(`[${channel}] ${message} ${JSON.stringify(tags)}`);
-    console.log(message);
+    //console.log(`[${channel}] ${message} ${JSON.stringify(tags)}`);
+    //console.log(message);
 
     if (tags['user-id'] == undefined) return;
 
     const messageObject: ChatMessage = {
-      userId: tags['user-id'],
+      username: tags['username'] ?? tags['display-name'] ?? 'UNKNOWN',
       timestamp: dayjs().unix(),
       message: message
     };
