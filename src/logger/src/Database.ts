@@ -51,17 +51,18 @@ export async function writeMessage(channel: string, item: ChatMessage): Promise<
       'username': item.username,
       'weekOfYear': currentWeek
     },
-    UpdateExpression: 'SET #messages = list_append(#messages, :newMessage)',
+    UpdateExpression: 'SET #messages = list_append(if_not_exists(#messages, :emptyList), :newMessage)',
     ExpressionAttributeNames: {
       '#messages': 'messages'
     },
     ExpressionAttributeValues: {
-      ":newMessage": [
+      ':newMessage': [
         {
           message: item.message,
           timestamp: item.timestamp
         }
-      ]
+      ],
+      ':emptyList': []
     },
   };
 
