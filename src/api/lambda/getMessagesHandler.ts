@@ -8,7 +8,7 @@ dayjs.extend(weekOfYear);
 
 const currentWeek: number = dayjs().week();
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+export const handler = async function (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const dynamoClient = DynamoDBDocument.from(new DynamoDBClient({ region: 'us-west-2' }));
 
   const channel: string = event.pathParameters!.channel!.toLowerCase();
