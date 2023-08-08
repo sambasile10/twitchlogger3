@@ -25,16 +25,14 @@ export class TwitchLoggerStack extends Stack {
 
     instance.connections.allowFromAnyIpv4(ec2.Port.tcp(22)); // Allow SSH
 
-    new CfnOutput(this, 'InstancePublicIp', {
-      value: instance.instancePublicIp
-    });
-
     const userData = ec2.UserData.forLinux();
     userData.addCommands(
       'sudo su',
       'apt-get update -y',
       'git clone https://github.com/sambasile10/twitchlogger3.git',
-      'npx ts-node logger/src/Chat.ts'
+      'cd twitchlogger3',
+      'npm i',
+      'npx ts-node src/logger/src/Chat.ts'
     );
 
     /**
