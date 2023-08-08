@@ -2,6 +2,11 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument, GetCommand, GetCommandInput } from "@aws-sdk/lib-dynamodb";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+
+dayjs.extend(weekOfYear);
+
+const currentWeek: number = dayjs().week();
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const dynamoClient = DynamoDBDocument.from(new DynamoDBClient({ region: 'us-west-2' }));
@@ -13,7 +18,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   try {
     const input: GetCommandInput = {
       TableName: channel,
-      Key: { ['username']: username }
+      Key: { 
+        'username': username,
+        'weekOfYear': currentWeek
+      }
     };
 
     const command = new GetCommand(input);
