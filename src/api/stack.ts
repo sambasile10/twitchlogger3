@@ -11,7 +11,7 @@ export class APIStack extends cdk.Stack {
     const getMessagesLambda = new lambda.Function(this, 'MyLambdaFunction', {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'getMessagesHandler.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset('api/lambda'),
     });
 
     const dynamoDBGrantReadPolicy = new iam.PolicyStatement({

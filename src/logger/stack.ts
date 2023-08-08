@@ -34,7 +34,7 @@ export class TwitchLoggerStack extends Stack {
       'sudo su',
       'apt-get update -y',
       'git clone https://github.com/sambasile10/twitchlogger3.git',
-      'npx ts-node src/Chat.ts'
+      'npx ts-node logger/src/Chat.ts'
     );
 
     /**
