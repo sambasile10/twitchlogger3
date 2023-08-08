@@ -49,7 +49,7 @@ export async function writeMessage(channel: string, item: ChatMessage): Promise<
     TableName: channel,
     Key: {
       'username': item.username,
-      'weekofYear': weekOfYear
+      'weekOfYear': currentWeek
     },
     UpdateExpression: 'SET #messages = list_append(#messages, :newMessage)',
     ExpressionAttributeNames: {
